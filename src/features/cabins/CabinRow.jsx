@@ -1,13 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
 import CreateCabinForm from "./CreateCabinForm";
 
 import { formatCurrency } from "../../utils/helpers";
-import { deleteCabin } from "../../services/apiCabins";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -50,22 +48,8 @@ const Discount = styled.div`
 
 const CabinRow = ({ cabin }) => {
   const [showForm, setShowForm] = useState(false);
-  // const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isDeleting, deleteCabin } = useDeleteCabin();
   // const { isCreating, createCabin } = useCreateCabin();
-
-  const queryClient = useQueryClient();
-
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      toast.success("Cabin successfully deleted");
-
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-    },
-    onError: (error) => toast.error(error.message),
-  });
 
   const {
     id: cabinId,
@@ -107,12 +91,11 @@ const CabinRow = ({ cabin }) => {
           {/* <button onClick={() => setShowForm((show) => !show)}>
             <HiPencil />
           </button> */}
-          {/* <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>        <HiTrash />
-          </button>*/}
-          <button onClick={() => setShowForm((show) => !show)}>Edit</button>
-          <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
-            Delete
+          <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+            {" "}
+            <HiTrash />
           </button>
+          <button onClick={() => setShowForm((show) => !show)}>Edit</button>
         </div>
       </TableRow>
       {showForm && <CreateCabinForm cabinToEdit={cabin} />}
