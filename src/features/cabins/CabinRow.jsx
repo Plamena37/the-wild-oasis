@@ -1,11 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-import { formatCurrency } from "../../utils/helpers";
-import CreateCabinForm from "./CreateCabinForm";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+
+import CreateCabinForm from "./CreateCabinForm";
+
+import { formatCurrency } from "../../utils/helpers";
+import { deleteCabin } from "../../services/apiCabins";
 
 const TableRow = styled.div`
   display: grid;
@@ -105,9 +107,11 @@ const CabinRow = ({ cabin }) => {
           {/* <button onClick={() => setShowForm((show) => !show)}>
             <HiPencil />
           </button> */}
-          {/* <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}> */}
+          {/* <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>        <HiTrash />
+          </button>*/}
+          <button onClick={() => setShowForm((show) => !show)}>Edit</button>
           <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
-            <HiTrash />
+            Delete
           </button>
         </div>
       </TableRow>
