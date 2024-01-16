@@ -4,4 +4,4 @@ export const formMessages = {
   discount: "Discount should be less than regular price",
 };
 
-export const PAGE_SIZE = 1;
+export const PAGE_SIZE = 10;
