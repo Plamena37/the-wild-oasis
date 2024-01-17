@@ -1,4 +1,4 @@
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 
 export const getCabins = async () => {
   const { data, error } = await supabase
@@ -15,9 +15,7 @@ export const getCabins = async () => {
 };
 
 export const createEditCabin = async (newCabin, id) => {
-  const hasImagePath = newCabin.image?.startsWith?.(
-    import.meta.env.VITE_SUPABASE_URL
-  );
+  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
 
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
     "/",
@@ -26,9 +24,7 @@ export const createEditCabin = async (newCabin, id) => {
 
   const imagePath = hasImagePath
     ? newCabin.image
-    : `${
-        import.meta.env.VITE_SUPABASE_URL
-      }/storage/v1/object/public/cabin-images/${imageName}`;
+    : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
   // Create/edit cabin
   let query = supabase.from("cabins");
