@@ -120,7 +120,6 @@ export const updateBooking = async (id, obj) => {
 };
 
 export const deleteBooking = async (id) => {
-  // REMEMBER RLS POLICIES
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
 
   if (error) {
