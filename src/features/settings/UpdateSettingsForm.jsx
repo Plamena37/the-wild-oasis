@@ -6,7 +6,7 @@ import Spinner from "../../ui/Spinner";
 import { useSettings } from "./useSettings";
 import { useUpdateSetting } from "./useUpdateSetting";
 
-function UpdateSettingsForm() {
+const UpdateSettingsForm = () => {
   const {
     isLoading,
     settings: {
@@ -70,6 +70,6 @@ function UpdateSettingsForm() {
       </FormRow>
     </Form>
   );
-}
+};
 
 export default UpdateSettingsForm;

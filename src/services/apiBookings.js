@@ -123,3 +123,47 @@ export const deleteBooking = async (id) => {
   }
   return data;
 };
+
+export const getGuests = async () => {
+  const { data, error } = await supabase.from("guests").select("*");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Guests could not be retrieved.");
+  }
+
+  return data;
+};
+
+export const createGuest = async (newGuest) => {
+  const { data, error } = await supabase
+    .from("guests")
+    .insert([{ ...newGuest }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Guest could not be created.");
+  }
+  return data;
+};
+
+export const createEditBooking = async (newBooking, id) => {
+  let query = supabase.from("bookings");
+
+  // A) CREATE
+  if (!id) query = query.insert([{ ...newBooking }]);
+
+  // B) EDIT
+  if (id) query = query.update({ ...newBooking }).eq("id", id);
+
+  const { data, error } = await query.select().single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be created.");
+  }
+
+  return data;
+};

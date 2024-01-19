@@ -24,7 +24,7 @@ const Container = styled.div`
   gap: 3.2rem;
 `;
 
-function AppLayout() {
+const AppLayout = () => {
   return (
     <StyledAppLayout>
       <Header />
@@ -36,6 +36,6 @@ function AppLayout() {
       </Main>
     </StyledAppLayout>
   );
-}
+};
 
 export default AppLayout;

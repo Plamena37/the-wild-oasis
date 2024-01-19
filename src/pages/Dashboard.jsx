@@ -3,7 +3,7 @@ import DashboardFilter from "../features/dashboard/DashboardFilter";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
-function Dashboard() {
+const Dashboard = () => {
   return (
     <>
       <Row type="horizontal">
@@ -14,6 +14,6 @@ function Dashboard() {
       <DashboardLayout />
     </>
   );
-}
+};
 
 export default Dashboard;

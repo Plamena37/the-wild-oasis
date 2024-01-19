@@ -13,7 +13,6 @@ const StyledPageNotFound = styled.main`
 `;
 
 const Box = styled.div`
-  /* box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
@@ -27,7 +26,7 @@ const Box = styled.div`
   }
 `;
 
-function PageNotFound() {
+const PageNotFound = () => {
   const moveBack = useMoveBack();
 
   return (
@@ -42,6 +41,6 @@ function PageNotFound() {
       </Box>
     </StyledPageNotFound>
   );
-}
+};
 
 export default PageNotFound;
