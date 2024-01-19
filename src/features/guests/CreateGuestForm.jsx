@@ -1,113 +1,138 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from "react-hook-form";
 
-import { useCountries } from 'hooks/useCountries';
-import { useCreateGuest } from 'features/guests/useCreateGuest';
-import Spinner from 'ui/Spinner';
-import Form from 'ui/Form';
-import FormRow from 'ui/FormRow';
-import Input from 'ui/Input';
-import Select from 'ui/Select';
-import Button from 'ui/Button';
-import styled from 'styled-components';
+import { useCountries } from "./useCountries";
+import { useCreateGuest } from "./useCreateGuest";
 
-const FormSelect = styled(Select)`
-  width: 100%;
-`;
+import Spinner from "../../ui/Spinner";
+import Form from "../../ui/Form";
+import FormRow from "../../ui/FormRow";
+import Input from "../../ui/Input";
+import Select from "react-select";
+import Button from "../../ui/Button";
 
-// With NEW modal
-// function CreateGuest({ onSuccessNewGuest, setIsOpenForm }) {
-function CreateGuestForm({ onSuccessNewGuest, closeModal }) {
-  const { isLoading: isLoadingCountries, countries } = useCountries();
-  const { isLoading: isCreating, mutate: createGuest } = useCreateGuest();
+const CreateGuestForm = ({
+  onCloseModal,
+  guest,
+  handleGuest,
+  handleIsGuestFound,
+}) => {
+  const { isCreating, createGuest } = useCreateGuest();
 
-  const { register, handleSubmit, formState } = useForm();
+  const { countries, isLoading } = useCountries();
+
+  const { register, handleSubmit, formState, control, reset } = useForm();
+
   const { errors } = formState;
 
-  if (isLoadingCountries) return <Spinner />;
+  if (isLoading) return <Spinner />;
 
-  const countryOptions = countries.map((country) => {
-    return {
-      value: country.name,
-      label: country.name,
-    };
-  });
-  console.log(countryOptions);
+  const countryOptions = countries
+    ?.map((country) => {
+      return {
+        value: country.name.common,
+        label: country.name.common,
+      };
+    })
+    .sort((a, b) => a.label.localeCompare(b.label));
 
-  const onSubmit = function (data) {
+  const onSubmit = (data) => {
+    const nationality = data.nationality.value;
     const countryFlag = countries.find(
-      (country) => country.name === data.nationality
-    ).flag;
+      (country) => country.name.common === nationality
+    ).flags.svg;
 
     createGuest(
-      { ...data, countryFlag },
+      { ...data, nationality, countryFlag },
       {
-        // In the mutate function, we can ALSO use the onSuccess handler, just like in useMutation. Both will get called. This one also gets access to the returned value of the mutation (new guest in this case)
-        // This is how we can get access to the newly created object. Here we set it into state, because we want to display it in the UI
         onSuccess: (data) => {
-          // We might want to reuse this form in another place, and then onSuccessNewGuest will not exist
-          onSuccessNewGuest?.(data);
-
-          // If this component is used OUTSIDE the Modal Context, this will return undefined, so we need to test for this. Instead of if
-          closeModal?.();
+          handleGuest(data);
+          reset();
+          handleIsGuestFound((isGuestFound) => !isGuestFound);
         },
       }
     );
   };
 
   return (
-    <Form type='modal' onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label='Full name' error={errors?.fullName?.message}>
+    <Form
+      type={onCloseModal ? "modal" : "regular"}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
-          type='text'
-          id='fullName'
+          type="text"
+          id="fullName"
           disabled={isCreating}
-          {...register('fullName', { required: 'This field is required' })}
+          defaultValue={guest?.fullName}
+          {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
 
-      <FormRow label='Email address' error={errors?.email?.message}>
+      <FormRow label="Email address" error={errors?.email?.message}>
         <Input
-          type='email'
-          id='email'
+          type="email"
+          id="email"
           disabled={isCreating}
-          {...register('email', {
-            required: 'Email address is required',
+          {...register("email", {
+            required: "Email address is required",
             pattern: {
-              // google: email regex JavaScript
               value: /\S+@\S+\.\S+/,
-              message: 'Please specify a valid email',
+              message: "Please specify a valid email",
             },
           })}
         />
       </FormRow>
 
-      <FormRow label='Nationality' error={errors?.nationality?.message}>
-        <FormSelect
-          id='nationality'
-          disabled={isCreating}
-          options={[
-            { value: '', label: 'Select nationality...' },
-            ...countryOptions,
-          ]}
-          {...register('nationality', { required: 'This field is required' })}
-        ></FormSelect>
-      </FormRow>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "26.5rem 1fr 1fr",
+          paddingTop: "1.2rem",
+          paddingBottom: "1.2rem",
+        }}
+      >
+        <label htmlFor="nationality">Nationality</label>
+        <Controller
+          name="nationality"
+          control={control}
+          render={({ field: { onChange, value, ref } }) => (
+            <span style={{ color: "black" }}>
+              <Select
+                options={countryOptions}
+                onChange={onChange}
+                value={value}
+                inputRef={ref}
+                id="nationality"
+                error={!!errors.nationality}
+              />
+            </span>
+          )}
+          rules={{ required: true }}
+        />
+        {errors.nationality && (
+          <p style={{ color: "red", paddingLeft: "1rem" }}>
+            This field is required.
+          </p>
+        )}
+      </div>
 
-      <FormRow label='National ID' error={errors?.nationalID?.message}>
+      <FormRow label="National ID" error={errors?.nationalID?.message}>
         <Input
-          type='text'
+          type="text"
           disabled={isCreating}
-          id='nationalID'
-          {...register('nationalID', { required: 'This field is required' })}
+          id="nationalID"
+          {...register("nationalID", {
+            required: "This field is required",
+          })}
         />
       </FormRow>
 
       <FormRow>
         <Button
-          variation='secondary'
-          type='reset'
+          $variation="secondary"
+          type="reset"
           disabled={isCreating}
-          onClick={() => closeModal?.()}
+          onClick={() => onCloseModal?.()}
         >
           Cancel
         </Button>
@@ -115,6 +140,5 @@ function CreateGuestForm({ onSuccessNewGuest, closeModal }) {
       </FormRow>
     </Form>
   );
-}
-
+};
 export default CreateGuestForm;
