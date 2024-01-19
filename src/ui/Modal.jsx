@@ -1,6 +1,6 @@
 import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 
@@ -14,6 +14,13 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+
+  ${(props) =>
+    props.smallerModal &&
+    css`
+      max-height: 90%;
+      overflow-y: auto;
+    `}
 `;
 
 const Overlay = styled.div`
@@ -46,7 +53,6 @@ const Button = styled.button`
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    /* Sometimes we need both */
     /* fill: var(--color-grey-500);
     stroke: var(--color-grey-500); */
     color: var(--color-grey-500);
@@ -74,7 +80,7 @@ const Open = ({ children, opens: opensWindowName }) => {
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 };
 
-const Window = ({ children, name }) => {
+const Window = ({ children, name, smallerModal }) => {
   const { openName, close } = useContext(ModalContext);
   const ref = useOutsideClick(close);
 
@@ -82,7 +88,7 @@ const Window = ({ children, name }) => {
 
   return createPortal(
     <Overlay>
-      <StyledModal ref={ref}>
+      <StyledModal ref={ref} smallerModal={smallerModal}>
         <Button onClick={close}>
           <HiXMark />
         </Button>

@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { useGuests } from 'features/guests/useGuests';
-import Pagination from 'ui/Pagination';
-import Spinner from 'ui/Spinner';
-import GuestListItem from './GuestListItem';
+import styled from "styled-components";
+import { useGuests } from "./useGuests";
+import Pagination from "../../ui/Pagination";
+import Spinner from "../../ui/Spinner";
+import GuestListItem from "./GuestListItem";
 
 const StyledGuestList = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -28,7 +28,7 @@ const PaginationContainer = styled.div`
   }
 `;
 
-function GuestList({ onClick }) {
+const GuestList = ({ onClick }) => {
   const { isLoading, guests, count } = useGuests();
 
   if (isLoading) return <Spinner />;
@@ -42,7 +42,6 @@ function GuestList({ onClick }) {
           <GuestListItem
             key={guest.id}
             guest={guest}
-            // For case where GuestList was used without the onClick function
             onClick={onClick ? onClick : () => {}}
           />
         ))}
@@ -53,6 +52,6 @@ function GuestList({ onClick }) {
       </PaginationContainer>
     </StyledGuestList>
   );
-}
+};
 
 export default GuestList;

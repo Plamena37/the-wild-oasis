@@ -10,7 +10,7 @@ export const getSettings = async () => {
   return data;
 };
 
-// We expect a newSetting object that looks like {setting: newValue}
+// object that looks like {setting: newValue}
 export const updateSetting = async (newSetting) => {
   const { data, error } = await supabase
     .from("settings")
