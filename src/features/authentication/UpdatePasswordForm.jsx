@@ -5,16 +5,17 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUpdateUser } from "./useUpdateUser";
+import { formMessages } from "../../utils/constants";
 
-function UpdatePasswordForm() {
+const UpdatePasswordForm = () => {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
   const { updateUser, isUpdating } = useUpdateUser();
 
-  function onSubmit({ password }) {
+  const onSubmit = ({ password }) => {
     updateUser({ password }, { onSuccess: reset });
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -28,10 +29,10 @@ function UpdatePasswordForm() {
           autoComplete="current-password"
           disabled={isUpdating}
           {...register("password", {
-            required: "This field is required",
+            required: formMessages.requiredField,
             minLength: {
               value: 8,
-              message: "Password needs a minimum of 8 characters",
+              message: formMessages.password,
             },
           })}
         />
@@ -47,12 +48,13 @@ function UpdatePasswordForm() {
           id="passwordConfirm"
           disabled={isUpdating}
           {...register("passwordConfirm", {
-            required: "This field is required",
+            required: formMessages.requiredField,
             validate: (value) =>
-              getValues().password === value || "Passwords need to match",
+              getValues().password === value || formMessages.confirmPassword,
           })}
         />
       </FormRow>
+
       <FormRow>
         <Button onClick={reset} type="reset" variation="secondary">
           Cancel
@@ -61,6 +63,6 @@ function UpdatePasswordForm() {
       </FormRow>
     </Form>
   );
-}
+};
 
 export default UpdatePasswordForm;
