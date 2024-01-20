@@ -11,5 +11,5 @@ export const useGuests = () => {
     queryFn: getGuests,
   });
 
-  return { isLoading, guests, count: guests.length, error };
+  return { isLoading, guests, error };
 };
