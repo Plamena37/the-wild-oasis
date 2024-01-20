@@ -67,3 +67,6 @@ React + Vite, React Router, JavaScript, React Query, react-hook-form, styled-com
 
 ![DashboardDarkMode](https://i.imgur.com/IQz8NdU.png)
 
+![EmailConfirmation](https://i.imgur.com/8DV5wWa.png)
+
+
