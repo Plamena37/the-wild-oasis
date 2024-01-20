@@ -36,7 +36,7 @@
 ## Features:
 - authentication, authorization, protected routes
 - compound components
-- remote state managment
+- remote state management
 - form validation
 - dark mode
 - sorting, filtering, pagination
