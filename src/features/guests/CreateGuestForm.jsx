@@ -1,13 +1,14 @@
 import { useForm, Controller } from "react-hook-form";
+import Select from "react-select";
 
 import { useCountries } from "./useCountries";
 import { useCreateGuest } from "./useCreateGuest";
+import { formMessages } from "../../utils/constants";
 
 import Spinner from "../../ui/Spinner";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import Select from "react-select";
 import Button from "../../ui/Button";
 
 const CreateGuestForm = ({
@@ -17,12 +18,14 @@ const CreateGuestForm = ({
   handleIsGuestFound,
 }) => {
   const { isCreating, createGuest } = useCreateGuest();
-
   const { countries, isLoading } = useCountries();
-
-  const { register, handleSubmit, formState, control, reset } = useForm();
-
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+    reset,
+  } = useForm();
 
   if (isLoading) return <Spinner />;
 
@@ -64,7 +67,7 @@ const CreateGuestForm = ({
           id="fullName"
           disabled={isCreating}
           defaultValue={guest?.fullName}
-          {...register("fullName", { required: "This field is required" })}
+          {...register("fullName", { required: formMessages.requiredField })}
         />
       </FormRow>
 
@@ -74,10 +77,10 @@ const CreateGuestForm = ({
           id="email"
           disabled={isCreating}
           {...register("email", {
-            required: "Email address is required",
+            required: formMessages.requiredField,
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: "Please specify a valid email",
+              message: formMessages.validEmail,
             },
           })}
         />
@@ -122,14 +125,14 @@ const CreateGuestForm = ({
           disabled={isCreating}
           id="nationalID"
           {...register("nationalID", {
-            required: "This field is required",
+            required: formMessages.requiredField,
           })}
         />
       </FormRow>
 
       <FormRow>
         <Button
-          $variation="secondary"
+          variation="secondary"
           type="reset"
           disabled={isCreating}
           onClick={() => onCloseModal?.()}

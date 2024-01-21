@@ -35,14 +35,16 @@ const CreateBookingForm = ({ onCloseModal }) => {
   const [isGuestFound, setIsGuestFound] = useState(false);
   const [showCreateGuestForm, setShowCreateGuestForm] = useState(false);
   const [guest, setGuest] = useState(null);
-
   const { cabins, isLoading } = useCabins();
-
   const { guests, isLoading: isGuestsLoading } = useGuests();
-
   const { isCreating, createBooking } = useCreateBooking();
-
-  const { register, handleSubmit, reset, formState, control } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+    control,
+  } = useForm({
     // defaultValues: isEditSession ? editValues : {},
     defaultValues: {},
     mode: "onChange",
@@ -52,8 +54,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
     control,
     name: "guestsArray",
   });
-
-  const { errors } = formState;
 
   const cabinOptions = cabins?.map((cabin) => {
     return {
@@ -94,7 +94,6 @@ const CreateBookingForm = ({ onCloseModal }) => {
         (guest) => guest.fullName.toUpperCase() === data.fullName.toUpperCase()
       )?.id,
     }))(data);
-    console.log(data);
     createBooking(newBooking, {
       onSuccess: () => {
         reset();
@@ -147,17 +146,13 @@ const CreateBookingForm = ({ onCloseModal }) => {
           </FormRow>
           <FormRow>
             <Button
-              $variation="secondary"
+              variation="secondary"
               type="reset"
               onClick={() => onCloseModal?.()}
             >
               Cancel
             </Button>
-            <Button
-            // disabled={isCreating}
-            >
-              Lookup guest
-            </Button>
+            <Button>Lookup guest</Button>
           </FormRow>
         </Form>
       )}
@@ -193,10 +188,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
               paddingBottom: "1.2rem",
             }}
           >
-            <label
-              htmlFor="guestsArray"
-              // style={{ width: "100%" }}
-            >
+            <label htmlFor="guestsArray" style={{ fontWeight: "500" }}>
               Additional guests
             </label>
             <ul
@@ -223,7 +215,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
                     />
                     {index > -1 && (
                       <Button
-                        $variation="secondary"
+                        variation="secondary"
                         size="small"
                         onClick={() => remove(index)}
                       >
@@ -236,7 +228,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
 
               <span>
                 <Button
-                  $variation="secondary"
+                  variation="secondary"
                   size="small"
                   onClick={(e) => {
                     e.preventDefault();
@@ -279,7 +271,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
               paddingBottom: "1.2rem",
             }}
           >
-            <label htmlFor="cabinId">Select cabin</label>
+            <label htmlFor="cabinId" style={{ fontWeight: "500" }}>
+              Select cabin
+            </label>
             <Controller
               name="cabinId"
               control={control}
@@ -355,7 +349,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
 
           <FormRow>
             <Button
-              $variation="secondary"
+              variation="secondary"
               type="reset"
               onClick={() => onCloseModal?.()}
             >

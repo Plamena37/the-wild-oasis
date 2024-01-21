@@ -1,5 +1,5 @@
-import Button from "../../ui/Button";
 import CreateBookingForm from "./CreateBookingForm";
+import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 
 const AddBooking = () => {
