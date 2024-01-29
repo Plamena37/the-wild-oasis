@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 import { useTodayActivity } from "./useTodayActivity";
+import TodayItem from "./TodayItem";
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
 import Spinner from "../../ui/Spinner";
-import TodayItem from "./TodayItem";
+import NoActivity from "../../ui/NoActivity";
 
 const StyledToday = styled.div`
   background-color: var(--color-grey-0);
@@ -28,13 +29,6 @@ const TodayList = styled.ul`
   }
   scrollbar-width: none;
   -ms-overflow-style: none;
-`;
-
-const NoActivity = styled.p`
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 500;
-  margin-top: 0.8rem;
 `;
 
 const TodayActivity = () => {

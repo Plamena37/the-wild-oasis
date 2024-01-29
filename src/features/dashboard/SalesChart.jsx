@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import DashboardBox from "./DashboardBox";
-import Heading from "../../ui/Heading";
+import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 import {
   Area,
   AreaChart,
@@ -11,7 +10,10 @@ import {
   YAxis,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
-import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+import DashboardBox from "./DashboardBox";
+import Heading from "../../ui/Heading";
+
+import NoActivity from "../../ui/NoActivity";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -64,38 +66,42 @@ const SalesChart = ({ bookings, numDays }) => {
       </Heading>
 
       <ResponsiveContainer height={300} width="100%">
-        <AreaChart data={data}>
-          <XAxis
-            dataKey="label"
-            tick={{ fill: colors.text }}
-            tickLine={{ stroke: colors.text }}
-          />
-          <YAxis
-            unit="$"
-            tick={{ fill: colors.text }}
-            tickLine={{ stroke: colors.text }}
-          />
-          <CartesianGrid strokeDasharray="4" />
-          <Tooltip contentStyle={{ backgroundColor: colors.background }} />
-          <Area
-            dataKey="totalSales"
-            type="monotone"
-            stroke={colors.totalSales.stroke}
-            fill={colors.totalSales.fill}
-            strokeWidth={2}
-            name="Total sales"
-            unit="$"
-          />
-          <Area
-            dataKey="extrasSales"
-            type="monotone"
-            stroke={colors.extrasSales.stroke}
-            fill={colors.extrasSales.fill}
-            strokeWidth={2}
-            name="Extras sales"
-            unit="$"
-          />
-        </AreaChart>
+        {data?.length > 0 ? (
+          <AreaChart data={data}>
+            <XAxis
+              dataKey="label"
+              tick={{ fill: colors.text }}
+              tickLine={{ stroke: colors.text }}
+            />
+            <YAxis
+              unit="$"
+              tick={{ fill: colors.text }}
+              tickLine={{ stroke: colors.text }}
+            />
+            <CartesianGrid strokeDasharray="4" />
+            <Tooltip contentStyle={{ backgroundColor: colors.background }} />
+            <Area
+              dataKey="totalSales"
+              type="monotone"
+              stroke={colors.totalSales.stroke}
+              fill={colors.totalSales.fill}
+              strokeWidth={2}
+              name="Total sales"
+              unit="$"
+            />
+            <Area
+              dataKey="extrasSales"
+              type="monotone"
+              stroke={colors.extrasSales.stroke}
+              fill={colors.extrasSales.fill}
+              strokeWidth={2}
+              name="Extras sales"
+              unit="$"
+            />
+          </AreaChart>
+        ) : (
+          <NoActivity>No sales during this period...</NoActivity>
+        )}
       </ResponsiveContainer>
     </StyledSalesChart>
   );

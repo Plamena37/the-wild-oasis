@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Heading from "../../ui/Heading";
 import {
   Cell,
   Legend,
@@ -9,6 +8,8 @@ import {
   Tooltip,
 } from "recharts";
 import { useDarkMode } from "../../context/DarkModeContext";
+import Heading from "../../ui/Heading";
+import NoActivity from "../../ui/NoActivity";
 
 const ChartBox = styled.div`
   background-color: var(--color-grey-0);
@@ -147,35 +148,39 @@ const DurationChart = ({ confirmedStays }) => {
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
       <ResponsiveContainer width="100%" height={240}>
-        <PieChart>
-          <Pie
-            data={data}
-            nameKey="duration"
-            dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
-            cx="40%"
-            cy="50%"
-            paddingAngle={3}
-          >
-            {data.map((entry) => (
-              <Cell
-                fill={entry.color}
-                stroke={entry.color}
-                key={entry.duration}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend
-            verticalAlign="middle"
-            align="right"
-            width="30%"
-            layout="vertical"
-            iconSize={15}
-            iconType="circle"
-          />
-        </PieChart>
+        {data?.length > 0 ? (
+          <PieChart>
+            <Pie
+              data={data}
+              nameKey="duration"
+              dataKey="value"
+              innerRadius={85}
+              outerRadius={110}
+              cx="40%"
+              cy="50%"
+              paddingAngle={3}
+            >
+              {data.map((entry) => (
+                <Cell
+                  fill={entry.color}
+                  stroke={entry.color}
+                  key={entry.duration}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend
+              verticalAlign="middle"
+              align="right"
+              width="30%"
+              layout="vertical"
+              iconSize={15}
+              iconType="circle"
+            />
+          </PieChart>
+        ) : (
+          <NoActivity>No stays during this period...</NoActivity>
+        )}
       </ResponsiveContainer>
     </ChartBox>
   );
