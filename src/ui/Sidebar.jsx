@@ -79,7 +79,13 @@ const Sidebar = ({ isOpen, closeMenu }) => {
       <Logo />
 
       <Drawer anchor="left" open={isOpen} onClose={closeMenu}>
-        <Box sx={{ minWidth: 250 }}>
+        <Box
+          sx={{
+            minWidth: 250,
+            backgroundColor: "var(--color-grey-0)",
+            height: "100%",
+          }}
+        >
           <Grid
             container
             p={1}
