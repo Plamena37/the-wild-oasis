@@ -20,6 +20,10 @@ const FileInput = styled.input.attrs({ type: "file" })`
       background-color: var(--color-brand-700);
     }
   }
+
+  @media (max-width: 400px) {
+    font-size: 1.3rem;
+  }
 `;
 
 export default FileInput;
