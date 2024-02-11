@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-
+import { Box } from "@mui/material";
 import { formatCurrency } from "../../utils/helpers";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { useCreateCabin } from "./useCreateCabin";
@@ -64,7 +64,18 @@ const CabinRow = ({ cabin }) => {
 
   return (
     <Table.Row>
-      <Img src={image} />
+      <Box
+        sx={{
+          display: {
+            lg: "flex",
+            md: "flex",
+            sm: "none",
+            xs: "none",
+          },
+        }}
+      >
+        <Img src={image} />
+      </Box>
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>

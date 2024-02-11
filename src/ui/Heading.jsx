@@ -7,8 +7,8 @@ const Heading = styled.h1`
       font-size: 3rem;
       font-weight: 600;
 
-      @media (max-width: 600px) {
-        font-size: 2.5rem;
+      @media (max-width: 800px) {
+        font-size: 2.6rem;
       }
     `}
 
@@ -18,7 +18,7 @@ const Heading = styled.h1`
       font-size: 2rem;
       font-weight: 600;
 
-      @media (max-width: 600px) {
+      @media (max-width: 800px) {
         font-size: 1.6rem;
       }
     `}
@@ -29,7 +29,7 @@ const Heading = styled.h1`
       font-size: 2rem;
       font-weight: 500;
 
-      @media (max-width: 600px) {
+      @media (max-width: 800px) {
         font-size: 1.6rem;
       }
     `}
@@ -41,8 +41,8 @@ const Heading = styled.h1`
       font-weight: 600;
       text-align: center;
 
-      @media (max-width: 600px) {
-        font-size: 2.5rem;
+      @media (max-width: 800px) {
+        font-size: 2.6rem;
       }
     `}
     

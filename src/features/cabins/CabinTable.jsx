@@ -1,10 +1,11 @@
 import { useSearchParams } from "react-router-dom";
+import { Box } from "@mui/material";
 import { useCabins } from "./useCabins";
 import Spinner from "../../ui/Spinner";
-import CabinRow from "./CabinRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
+import CabinRow from "./CabinRow";
 
 const CabinTable = () => {
   const { isLoading, cabins } = useCabins();
@@ -33,9 +34,20 @@ const CabinTable = () => {
 
   return (
     <Menus>
-      <Table columns=" 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr" entity="cabins">
         <Table.Header>
-          <div></div>
+          <Box
+            sx={{
+              display: {
+                lg: "block",
+                md: "block",
+                sm: "none",
+                xs: "none",
+              },
+            }}
+          >
+            <div></div>
+          </Box>
           <div>Cabin</div>
           <div>Capacity</div>
           <div>Price</div>

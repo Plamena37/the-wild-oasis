@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -16,6 +16,15 @@ const CommonRow = styled.div`
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
+
+  ${(props) =>
+    props.entity === "cabins" &&
+    css`
+      @media (max-width: 820px) {
+        grid-template-columns: 0.6fr 2fr repeat(3, 0.8fr);
+        column-gap: 1rem;
+      }
+    `}
 `;
 
 const StyledHeader = styled(CommonRow)`
@@ -27,6 +36,16 @@ const StyledHeader = styled(CommonRow)`
   letter-spacing: 0.4px;
   font-weight: 600;
   color: var(--color-grey-600);
+
+  ${(props) =>
+    props.entity === "cabins" &&
+    css`
+      @media (max-width: 820px) {
+        grid-template-columns: 0.6fr 2fr repeat(3, 0.8fr);
+        gap: 3rem;
+        padding-left: 1.2rem;
+      }
+    `}
 `;
 
 const StyledRow = styled(CommonRow)`
@@ -34,6 +53,10 @@ const StyledRow = styled(CommonRow)`
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
+  }
+
+  @media (max-width: 750px) {
+    padding: 1.2rem;
   }
 `;
 
@@ -47,7 +70,6 @@ const Footer = styled.footer`
   justify-content: center;
   padding: 1.2rem;
 
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
   &:not(:has(*)) {
     display: none;
   }
@@ -62,29 +84,29 @@ const Empty = styled.p`
 
 const TableContext = createContext();
 
-const Table = ({ columns, children }) => {
+const Table = ({ columns, entity, children }) => {
   return (
-    <TableContext.Provider value={{ columns }}>
+    <TableContext.Provider value={{ columns, entity }}>
       <StyledTable role="table">{children}</StyledTable>
     </TableContext.Provider>
   );
 };
 
 const Header = ({ children }) => {
-  const { columns } = useContext(TableContext);
+  const { columns, entity } = useContext(TableContext);
 
   return (
-    <StyledHeader role="row" columns={columns} as="header">
+    <StyledHeader role="row" columns={columns} entity={entity} as="header">
       {children}
     </StyledHeader>
   );
 };
 
 const Row = ({ children }) => {
-  const { columns } = useContext(TableContext);
+  const { columns, entity } = useContext(TableContext);
 
   return (
-    <StyledRow role="row" columns={columns}>
+    <StyledRow role="row" columns={columns} entity={entity}>
       {children}
     </StyledRow>
   );
