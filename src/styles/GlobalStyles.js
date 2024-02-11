@@ -179,6 +179,11 @@ img {
   /* For dark mode */
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
+
+.css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+  background-color: var( --color-grey-0) !important;
+
+}
 `;
 
 export default GlobalStyles;
