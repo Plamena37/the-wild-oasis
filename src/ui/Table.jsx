@@ -22,7 +22,7 @@ const CommonRow = styled.div`
     css`
       @media (max-width: 820px) {
         grid-template-columns: 0.6fr 2fr repeat(3, 0.8fr);
-        column-gap: 1rem;
+        column-gap: 1.6rem;
       }
     `}
 `;
@@ -44,6 +44,10 @@ const StyledHeader = styled(CommonRow)`
         grid-template-columns: 0.6fr 2fr repeat(3, 0.8fr);
         gap: 3rem;
         padding-left: 1.2rem;
+      }
+      @media (max-width: 400px) {
+        gap: 2.6rem;
+        padding-left: 0.8rem;
       }
     `}
 `;
