@@ -9,6 +9,13 @@ const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
   overflow: scroll;
+
+  @media (max-width: 700px) {
+    padding: 4rem 2.5rem 6.4rem;
+  }
+  @media (max-width: 500px) {
+    padding: 4rem 1rem 6.4rem;
+  }
 `;
 
 const Container = styled.div`

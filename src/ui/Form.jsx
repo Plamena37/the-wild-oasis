@@ -11,7 +11,7 @@ const Form = styled.form`
       border-radius: var(--border-radius-md);
 
       @media (max-width: 600px) {
-        padding: 2rem 3rem;
+        padding: 2rem;
       }
     `}
 
