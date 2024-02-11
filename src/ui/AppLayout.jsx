@@ -1,14 +1,9 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import styled from "styled-components";
+import { Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import styled from "styled-components";
-
-const StyledAppLayout = styled.div`
-  display: grid;
-  grid-template-columns: 26rem 1fr;
-  grid-template-rows: auto 1fr;
-  height: 100vh;
-`;
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
@@ -25,16 +20,31 @@ const Container = styled.div`
 `;
 
 const AppLayout = () => {
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+
+  const openMenu = () => setIsMenuOpened(true);
+  const closeMenu = () => setIsMenuOpened(false);
+
   return (
-    <StyledAppLayout>
-      <Header />
-      <Sidebar />
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: {
+          lg: "26rem 1fr",
+          md: "unset",
+        },
+        gridTemplateRows: "auto 1fr",
+        height: "100vh",
+      }}
+    >
+      <Header openMenu={openMenu} />
+      <Sidebar isOpen={isMenuOpened} closeMenu={closeMenu} />
       <Main>
         <Container>
           <Outlet />
         </Container>
       </Main>
-    </StyledAppLayout>
+    </Box>
   );
 };
 
