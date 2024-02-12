@@ -7,7 +7,7 @@ import Row from "../ui/Row";
 const Bookings = () => {
   return (
     <>
-      <Row type="horizontal">
+      <Row type="horizontal" entity="bookings">
         <Heading as="h1">All bookings</Heading>
         <BookingTableOperations />
       </Row>

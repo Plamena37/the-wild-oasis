@@ -25,6 +25,26 @@ const CommonRow = styled.div`
         column-gap: 1.6rem;
       }
     `}
+  ${(props) =>
+    props.entity === "bookings" &&
+    css`
+      @media (max-width: 850px) {
+        grid-template-columns: 0.6fr 1.8fr 1fr 1fr 0.8fr;
+        column-gap: 1.6rem;
+      }
+      @media (max-width: 710px) {
+        grid-template-columns: 0.3fr 1.1fr 1fr 1fr 0.3fr;
+        column-gap: 1.6rem;
+      }
+      @media (max-width: 550px) {
+        grid-template-columns: 0.3fr 1.5fr 1.3fr 0.3fr;
+        column-gap: 1rem;
+      }
+      @media (max-width: 450px) {
+        grid-template-columns: 0.5fr 1.5fr 0.3fr;
+        column-gap: 1rem;
+      }
+    `}
 `;
 
 const StyledHeader = styled(CommonRow)`
@@ -50,6 +70,16 @@ const StyledHeader = styled(CommonRow)`
         padding-left: 0.8rem;
       }
     `}
+  ${(props) =>
+    props.entity === "bookings" &&
+    css`
+      @media (max-width: 710px) {
+        padding-left: 1.2rem;
+      }
+    `}
+    @media (max-width: 450px) {
+    padding-left: 0.8rem;
+  }
 `;
 
 const StyledRow = styled(CommonRow)`

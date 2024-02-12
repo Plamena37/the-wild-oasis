@@ -7,6 +7,8 @@ import {
   HiEye,
   HiTrash,
 } from "react-icons/hi2";
+import { useMediaQuery } from "@mui/material";
+
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
@@ -61,6 +63,9 @@ const BookingRow = ({
   const navigate = useNavigate();
   const { checkout, isCheckingOut } = useCheckout();
   const { deleteBooking, isDeleting } = useDeleteBooking();
+  const isMediumScreen = useMediaQuery("(max-width: 850px)");
+  const isSmallScreen = useMediaQuery("(max-width: 550px)");
+  const isPhoneScreen = useMediaQuery("(max-width: 450px)");
 
   const statusToTagName = {
     unconfirmed: "blue",
@@ -77,22 +82,26 @@ const BookingRow = ({
         <span>{email}</span>
       </Stacked>
 
-      <Stacked>
-        <span>
-          {isToday(new Date(startDate))
-            ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
-          &rarr; {numNights} night stay
-        </span>
-        <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
-        </span>
-      </Stacked>
+      {!isMediumScreen && (
+        <Stacked>
+          <span>
+            {isToday(new Date(startDate))
+              ? "Today"
+              : formatDistanceFromNow(startDate)}{" "}
+            &rarr; {numNights} night stay
+          </span>
+          <span>
+            {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
+            {format(new Date(endDate), "MMM dd yyyy")}
+          </span>
+        </Stacked>
+      )}
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      {!isPhoneScreen && (
+        <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      )}
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
+      {!isSmallScreen && <Amount>{formatCurrency(totalPrice)}</Amount>}
 
       <Modal>
         <Menus.Menu>

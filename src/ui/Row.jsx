@@ -9,6 +9,16 @@ const Row = styled.div`
       justify-content: space-between;
       align-items: center;
 
+      ${(props) =>
+        props.type === "horizontal" &&
+        props.entity === "bookings" &&
+        css`
+          @media (max-width: 930px) {
+            flex-direction: column;
+            gap: 1rem;
+          }
+        `}
+
       @media (max-width: 750px) {
         flex-direction: column;
         gap: 1rem;

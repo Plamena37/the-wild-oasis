@@ -4,7 +4,7 @@ import TableOperations from "../../ui/TableOperations";
 
 const BookingTableOperations = () => {
   return (
-    <TableOperations>
+    <TableOperations entity="bookings">
       <Filter
         filterField="status"
         options={[
