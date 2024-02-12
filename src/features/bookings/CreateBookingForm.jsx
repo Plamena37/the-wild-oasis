@@ -2,6 +2,7 @@ import { useState } from "react";
 import Select from "react-select";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import styled from "styled-components";
+import { useMediaQuery } from "@mui/material";
 import { differenceInDays, parseISO } from "date-fns";
 
 import Form from "../../ui/Form";
@@ -53,6 +54,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
   const { cabins, isLoading } = useCabins();
   const { guests, isLoading: isGuestsLoading } = useGuests();
   const { isCreating, createBooking } = useCreateBooking();
+  const isSmallScreen = useMediaQuery("(max-width: 400px)");
   const {
     register,
     handleSubmit,
@@ -291,6 +293,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
                       control: (provided) => ({
                         ...provided,
                         backgroundColor: "var(--color-grey-0)",
+                        width: isSmallScreen ? "90%" : "100%",
                       }),
                       option: (provided, state) => ({
                         ...provided,

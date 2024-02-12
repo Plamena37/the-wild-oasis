@@ -1,5 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
+import { useMediaQuery } from "@mui/material";
 
 import { useCountries } from "./useCountries";
 import { useCreateGuest } from "./useCreateGuest";
@@ -19,6 +20,7 @@ const CreateGuestForm = ({
 }) => {
   const { isCreating, createGuest } = useCreateGuest();
   const { countries, isLoading } = useCountries();
+  const isSmallScreen = useMediaQuery("(max-width: 400px)");
   const {
     register,
     handleSubmit,
@@ -106,6 +108,7 @@ const CreateGuestForm = ({
                   control: (provided) => ({
                     ...provided,
                     backgroundColor: "var(--color-grey-0)",
+                    width: isSmallScreen ? "90%" : "100%",
                   }),
                   option: (provided, state) => ({
                     ...provided,
