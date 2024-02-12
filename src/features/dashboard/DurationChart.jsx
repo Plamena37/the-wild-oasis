@@ -7,6 +7,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
+import { useMediaQuery } from "@mui/material";
 import { useDarkMode } from "../../context/DarkModeContext";
 import Heading from "../../ui/Heading";
 import NoActivity from "../../ui/NoActivity";
@@ -25,6 +26,13 @@ const ChartBox = styled.div`
 
   & .recharts-pie-label-text {
     font-weight: 600;
+  }
+
+  @media (max-width: 1150px) {
+    grid-column: unset;
+  }
+  @media (max-width: 450px) {
+    padding: 2.4rem 1.5rem;
   }
 `;
 
@@ -144,6 +152,16 @@ const DurationChart = ({ confirmedStays }) => {
   const startData = isDarkMode ? startDataDark : startDataLight;
   const data = prepareData(startData, confirmedStays);
 
+  const isSmallScreen = useMediaQuery("(max-width: 600px)");
+  const isLargeScreen = useMediaQuery(
+    "(min-width: 1201px) and (max-width: 1330px)"
+  );
+
+  const largeScreenRadius = { inner: 80, outer: 110 };
+  const smallScreenRadius = { inner: 60, outer: 85 };
+  const radius =
+    isSmallScreen || isLargeScreen ? smallScreenRadius : largeScreenRadius;
+
   return (
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
@@ -154,8 +172,8 @@ const DurationChart = ({ confirmedStays }) => {
               data={data}
               nameKey="duration"
               dataKey="value"
-              innerRadius={85}
-              outerRadius={110}
+              innerRadius={radius.inner}
+              outerRadius={radius.outer}
               cx="40%"
               cy="50%"
               paddingAngle={3}

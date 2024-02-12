@@ -179,6 +179,23 @@ img {
   /* For dark mode */
   filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
+
+@media (max-width: 400px) {
+  .recharts-wrapper{
+
+    .recharts-surface {
+      width: 10%;
+    }
+  }
+
+.recharts-legend-wrapper {
+    width: 37%;
+    height: auto;
+    right: 5px;
+    top: 60px;
+}
+
+  }
 `;
 
 export default GlobalStyles;
