@@ -29,7 +29,8 @@ const ChartBox = styled.div`
   }
 
   @media (max-width: 1150px) {
-    grid-column: unset;
+    grid-column: 1/-1;
+    padding: 2.4rem 1.8rem;
   }
   @media (max-width: 450px) {
     padding: 2.4rem 1.5rem;

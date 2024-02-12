@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 import Tag from "../../ui/Tag";
 import { Flag } from "../../ui/Flag";
@@ -19,6 +20,10 @@ const StyledTodayItem = styled.li`
   &:first-child {
     border-top: 1px solid var(--color-grey-100);
   }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 9rem 2rem 1fr 7rem;
+  }
 `;
 
 const Guest = styled.div`
@@ -27,6 +32,7 @@ const Guest = styled.div`
 
 const TodayItem = ({ activity }) => {
   const { id, status, guests, numNights } = activity;
+  const isSmallScreen = useMediaQuery("(max-width: 500px)");
 
   return (
     <StyledTodayItem>
@@ -35,7 +41,7 @@ const TodayItem = ({ activity }) => {
 
       <Flag src={guests.countryFlag} alt={`Flag of ${guests.country}`} />
       <Guest>{guests.fullName}</Guest>
-      <div>{numNights} nights</div>
+      {!isSmallScreen && <div>{numNights} nights</div>}
 
       {status === "unconfirmed" && (
         <Button

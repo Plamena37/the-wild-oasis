@@ -20,7 +20,11 @@ const StyledToday = styled.div`
   padding-top: 2.4rem;
 
   @media (max-width: 1150px) {
-    grid-column: unset;
+    grid-column: 1/-1;
+    grid-row: 3;
+  }
+  @media (max-width: 500px) {
+    padding: 2rem;
   }
 `;
 
