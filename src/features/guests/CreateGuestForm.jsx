@@ -90,6 +90,9 @@ const CreateGuestForm = ({
         <Controller
           name="nationality"
           control={control}
+          rules={{
+            required: formMessages.requiredField,
+          }}
           render={({ field: { onChange, value, ref } }) => (
             <span style={{ color: "black" }}>
               <Select
@@ -98,9 +101,24 @@ const CreateGuestForm = ({
                 value={value}
                 inputRef={ref}
                 id="nationality"
-                {...register("nationality", {
-                  required: "This field is required.",
-                })}
+                disabled={isCreating}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    backgroundColor: "var(--color-grey-0)",
+                  }),
+                  option: (provided, state) => ({
+                    ...provided,
+                    backgroundColor: state.isSelected
+                      ? "var(--color-indigo-100)"
+                      : "var(--color-grey-0)",
+                    color: "var(--color-grey-900)",
+                  }),
+                  singleValue: (provided) => ({
+                    ...provided,
+                    color: "var(--color-grey-900)",
+                  }),
+                }}
               />
             </span>
           )}

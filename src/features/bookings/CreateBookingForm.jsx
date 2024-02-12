@@ -31,6 +31,21 @@ const StyledCheckbox = styled.input`
   }
 `;
 
+const StyledDiv = styled.div`
+  display: grid;
+  grid-template-columns: 26.5rem 1fr 1fr;
+  padding-block: 1.2rem;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 25rem 1fr;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 40% auto;
+    gap: 0.5rem;
+  }
+`;
+
 const CreateBookingForm = ({ onCloseModal }) => {
   const [isGuestFound, setIsGuestFound] = useState(false);
   const [showCreateGuestForm, setShowCreateGuestForm] = useState(false);
@@ -180,14 +195,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
             />
           </FormRow>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "26.5rem 1fr 1fr",
-              paddingTop: "1.2rem",
-              paddingBottom: "1.2rem",
-            }}
-          >
+          <StyledDiv>
             <label htmlFor="guestsArray" style={{ fontWeight: "500" }}>
               Additional guests
             </label>
@@ -239,7 +247,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
                 </Button>
               </span>
             </ul>
-          </div>
+          </StyledDiv>
 
           <FormRow label="Start date" error={errors?.startDate?.message}>
             <Input
@@ -267,6 +275,9 @@ const CreateBookingForm = ({ onCloseModal }) => {
             <Controller
               name="cabinId"
               control={control}
+              rules={{
+                required: formMessages.requiredField,
+              }}
               render={({ field: { onChange, value, ref } }) => (
                 <span style={{ color: "black" }}>
                   <Select
@@ -275,9 +286,24 @@ const CreateBookingForm = ({ onCloseModal }) => {
                     value={value}
                     inputRef={ref}
                     id="cabinId"
-                    {...register("cabinId", {
-                      required: "This field is required.",
-                    })}
+                    disabled={isCreating}
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        backgroundColor: "var(--color-grey-0)",
+                      }),
+                      option: (provided, state) => ({
+                        ...provided,
+                        backgroundColor: state.isSelected
+                          ? "var(--color-indigo-100)"
+                          : "var(--color-grey-0)",
+                        color: "var(--color-grey-900)",
+                      }),
+                      singleValue: (provided) => ({
+                        ...provided,
+                        color: "var(--color-grey-900)",
+                      }),
+                    }}
                   />
                 </span>
               )}
