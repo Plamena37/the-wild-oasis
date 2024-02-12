@@ -21,6 +21,11 @@ const StyledModal = styled.div`
       max-height: 90%;
       overflow-y: auto;
     `}
+
+  @media (max-width: 600px) {
+    padding: 3rem 2.5rem;
+    font-size: 1.4rem;
+  }
 `;
 
 const Overlay = styled.div`
@@ -59,6 +64,12 @@ const Button = styled.button`
   }
 `;
 
+const StyledDiv = styled.div`
+  @media (max-width: 600px) {
+    margin-top: 2.5rem;
+  }
+`;
+
 const ModalContext = createContext();
 
 const Modal = ({ children }) => {
@@ -93,7 +104,7 @@ const Window = ({ children, name, smallerModal }) => {
           <HiXMark />
         </Button>
 
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+        <StyledDiv>{cloneElement(children, { onCloseModal: close })}</StyledDiv>
       </StyledModal>
     </Overlay>,
     document.body
