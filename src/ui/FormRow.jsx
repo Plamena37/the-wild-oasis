@@ -26,10 +26,12 @@ const StyledFormRow = styled.div`
     gap: 1.2rem;
   }
 
+  @media (max-width: 800px) {
+    gap: 1rem;
+  }
   @media (max-width: 600px) {
     padding: 1rem 0;
     grid-template-columns: 38% 1fr;
-    gap: 1rem;
   }
 `;
 
@@ -41,6 +43,9 @@ const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
 
+  @media (max-width: 800px) {
+    grid-column: 2;
+  }
   @media (max-width: 600px) {
     font-size: 1.2rem;
   }

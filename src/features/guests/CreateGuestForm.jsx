@@ -86,15 +86,7 @@ const CreateGuestForm = ({
         />
       </FormRow>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "26.5rem 1fr 1fr",
-          paddingTop: "1.2rem",
-          paddingBottom: "1.2rem",
-        }}
-      >
-        <label htmlFor="nationality">Nationality</label>
+      <FormRow label="Nationality" error={errors?.nationality?.message}>
         <Controller
           name="nationality"
           control={control}
@@ -106,18 +98,14 @@ const CreateGuestForm = ({
                 value={value}
                 inputRef={ref}
                 id="nationality"
-                error={!!errors.nationality}
+                {...register("nationality", {
+                  required: "This field is required.",
+                })}
               />
             </span>
           )}
-          rules={{ required: true }}
         />
-        {errors.nationality && (
-          <p style={{ color: "red", paddingLeft: "1rem" }}>
-            This field is required.
-          </p>
-        )}
-      </div>
+      </FormRow>
 
       <FormRow label="National ID" error={errors?.nationalID?.message}>
         <Input

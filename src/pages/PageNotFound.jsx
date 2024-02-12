@@ -10,6 +10,10 @@ const StyledPageNotFound = styled.main`
   align-items: center;
   justify-content: center;
   padding: 4.8rem;
+
+  @media (max-width: 600px) {
+    padding: 2rem;
+  }
 `;
 
 const Box = styled.div`
@@ -23,6 +27,15 @@ const Box = styled.div`
 
   & h1 {
     margin-bottom: 3.2rem;
+  }
+
+  @media (max-width: 600px) {
+    padding: 2rem;
+
+    & h1 {
+      font-size: 2rem;
+      margin-bottom: 3rem;
+    }
   }
 `;
 

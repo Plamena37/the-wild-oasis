@@ -136,7 +136,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
             overflowY: "auto",
           }}
         >
-          <FormRow label="Guest full name" error={errors?.startDate?.message}>
+          <FormRow label="Guest full name" error={errors?.fullName?.message}>
             <Input
               type="text"
               id="fullName"
@@ -263,17 +263,7 @@ const CreateBookingForm = ({ onCloseModal }) => {
             />
           </FormRow>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "26.5rem 1fr 1fr",
-              paddingTop: "1.2rem",
-              paddingBottom: "1.2rem",
-            }}
-          >
-            <label htmlFor="cabinId" style={{ fontWeight: "500" }}>
-              Select cabin
-            </label>
+          <FormRow label="Cabin" error={errors?.cabinId?.message}>
             <Controller
               name="cabinId"
               control={control}
@@ -285,18 +275,14 @@ const CreateBookingForm = ({ onCloseModal }) => {
                     value={value}
                     inputRef={ref}
                     id="cabinId"
-                    error={!!errors.cabinId}
+                    {...register("cabinId", {
+                      required: "This field is required.",
+                    })}
                   />
                 </span>
               )}
-              rules={{ required: true }}
             />
-            {errors.cabinId && (
-              <p style={{ color: "red", paddingLeft: "1rem" }}>
-                This field is required.
-              </p>
-            )}
-          </div>
+          </FormRow>
 
           <FormRow label="Extras price" error={errors?.extrasPrice?.message}>
             <Input
