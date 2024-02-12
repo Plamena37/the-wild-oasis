@@ -26,6 +26,9 @@ const StyledModal = styled.div`
     padding: 3rem 2.5rem;
     font-size: 1.4rem;
   }
+  @media (max-width: 450px) {
+    padding: 1.4rem 2rem;
+  }
 `;
 
 const Overlay = styled.div`
