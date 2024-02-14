@@ -48,6 +48,26 @@ const Header = styled.header`
     font-size: 2rem;
     margin-left: 4px;
   }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    font-size: 1.6rem;
+    padding: 1.5rem 2rem;
+
+    svg {
+      height: 3rem;
+      width: 3rem;
+    }
+
+    & div:first-child {
+      font-size: 1.6rem;
+    }
+  }
+  @media (max-width: 500px) {
+    font-size: 1.2rem;
+  }
 `;
 
 const Section = styled.section`
@@ -64,6 +84,11 @@ const Guest = styled.div`
   & p:first-of-type {
     font-weight: 500;
     color: var(--color-grey-700);
+  }
+
+  @media (max-width: 900px) {
+    display: grid;
+    grid-template-columns: 0.2fr 2fr;
   }
 `;
 
@@ -90,6 +115,17 @@ const Price = styled.div`
     height: 2.4rem;
     width: 2.4rem;
     color: currentColor !important;
+  }
+
+  @media (max-width: 700px) {
+    padding: 1.2rem 2rem;
+    gap: 1.5rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+  @media (max-width: 500px) {
+    padding: 1.2rem;
+    gap: 1.2rem;
   }
 `;
 
@@ -162,7 +198,11 @@ const BookingDataBox = ({ booking }) => {
         </DataItem>
 
         <Price isPaid={isPaid}>
-          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
+          <DataItem
+            icon={<HiOutlineCurrencyDollar />}
+            label={`Total price`}
+            price="price"
+          >
             {formatCurrency(totalPrice)}
 
             {hasBreakfast &&
