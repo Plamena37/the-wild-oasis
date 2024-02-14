@@ -11,6 +11,8 @@ const StyledDataItem = styled.div`
   }
   @media (max-width: 500px) {
     font-size: 1.2rem;
+
+    ${(props) => props.center && `justify-content: center`}
   }
 `;
 
@@ -27,9 +29,9 @@ const Label = styled.span`
   }
 `;
 
-const DataItem = ({ icon, label, children }) => {
+const DataItem = ({ icon, label, center, children }) => {
   return (
-    <StyledDataItem>
+    <StyledDataItem center={center}>
       <Label>
         {icon}
         <span>{label}</span>

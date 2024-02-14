@@ -209,7 +209,11 @@ const BookingDataBox = ({ booking }) => {
         </DataItem>
 
         <Price isPaid={isPaid}>
-          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
+          <DataItem
+            icon={<HiOutlineCurrencyDollar />}
+            label={`Total price`}
+            center="center"
+          >
             {formatCurrency(totalPrice)}
 
             {hasBreakfast &&
