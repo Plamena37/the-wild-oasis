@@ -158,6 +158,8 @@ const DurationChart = ({ confirmedStays }) => {
     "(min-width: 1201px) and (max-width: 1330px)"
   );
 
+  const chartHeight = data?.length > 0 ? 240 : "auto";
+
   const largeScreenRadius = { inner: 80, outer: 110 };
   const smallScreenRadius = { inner: 60, outer: 85 };
   const radius =
@@ -166,7 +168,7 @@ const DurationChart = ({ confirmedStays }) => {
   return (
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
-      <ResponsiveContainer width="100%" height={240}>
+      <ResponsiveContainer width="100%" height={chartHeight}>
         {data?.length > 0 ? (
           <PieChart>
             <Pie
