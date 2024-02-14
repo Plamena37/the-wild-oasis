@@ -6,16 +6,11 @@ const StyledDataItem = styled.div`
   gap: 1.6rem;
   padding: 0.8rem 0;
 
-  @media (max-width: 700px) {
-    display: grid;
-    margin-bottom: 1rem;
-
-    ${(props) =>
-      props.price &&
-      css`
-        display: flex;
-        margin-bottom: 0;
-      `}
+  @media (max-width: 800px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width: 500px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -32,9 +27,9 @@ const Label = styled.span`
   }
 `;
 
-const DataItem = ({ icon, label, price, children }) => {
+const DataItem = ({ icon, label, children }) => {
   return (
-    <StyledDataItem price={price}>
+    <StyledDataItem>
       <Label>
         {icon}
         <span>{label}</span>

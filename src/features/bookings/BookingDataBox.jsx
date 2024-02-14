@@ -72,6 +72,13 @@ const Header = styled.header`
 
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
+
+  @media (max-width: 800px) {
+    padding: 3.2rem 3rem 1.2rem;
+  }
+  @media (max-width: 500px) {
+    padding: 3.2rem 2rem 1.2rem;
+  }
 `;
 
 const Guest = styled.div`
@@ -117,15 +124,19 @@ const Price = styled.div`
     color: currentColor !important;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     padding: 1.2rem 2rem;
     gap: 1.5rem;
     flex-direction: column;
-    justify-content: center;
   }
   @media (max-width: 500px) {
     padding: 1.2rem;
     gap: 1.2rem;
+    font-size: 1.2rem;
+
+    p {
+      font-size: 1.2rem !important;
+    }
   }
 `;
 
@@ -198,11 +209,7 @@ const BookingDataBox = ({ booking }) => {
         </DataItem>
 
         <Price isPaid={isPaid}>
-          <DataItem
-            icon={<HiOutlineCurrencyDollar />}
-            label={`Total price`}
-            price="price"
-          >
+          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
             {hasBreakfast &&
