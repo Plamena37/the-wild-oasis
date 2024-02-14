@@ -20,6 +20,9 @@ const ChartBox = styled.div`
   padding: 2.4rem 3.2rem;
   grid-column: 3 / span 2;
 
+  display: flex;
+  flex-direction: column;
+
   & > *:first-child {
     margin-bottom: 1.6rem;
   }
@@ -31,6 +34,9 @@ const ChartBox = styled.div`
   @media (max-width: 1150px) {
     grid-column: 1/-1;
     padding: 2.4rem 1.8rem;
+  }
+  @media (max-width: 750px) {
+    align-items: center;
   }
   @media (max-width: 450px) {
     padding: 2.4rem 1.5rem;
