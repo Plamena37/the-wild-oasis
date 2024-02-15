@@ -30,7 +30,7 @@
 - **account:** 
   - two forms for updating users data: full name, avatar and password
     
-- currently not responsive *yet*
+- responsive for all screens 
 
   
 ## Features:
